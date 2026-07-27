@@ -12,10 +12,14 @@
 
 const path = require('path');
 
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+require('dotenv').config({
+  path: path.resolve(__dirname, '../.env'),
+  quiet: true,
+});
 require('dotenv').config({
   path: path.resolve(__dirname, '../backend/.env'),
   override: true,
+  quiet: true,
 });
 
 const { testConnection } = require('../backend/config/db');
