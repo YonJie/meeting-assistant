@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
-const { testConnection } = require('./config/db');
+const { testConnection, ensureDatabase } = require('./config/db');
 const { syncDatabase } = require('./models');
 const meetingRoutes = require('./routes/meetingRoutes');
 const { notFoundHandler, errorHandler } = require('./middleware/errorHandler');
@@ -27,6 +27,7 @@ app.use(errorHandler);
 
 async function start() {
   try {
+    await ensureDatabase();
     await testConnection();
     console.log('数据库连接成功');
 

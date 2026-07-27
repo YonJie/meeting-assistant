@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
   Meeting.init(
     {
       id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
@@ -34,7 +34,7 @@ module.exports = (sequelize) => {
         comment: '逗号分隔的参会人',
       },
       content: {
-        type: DataTypes.TEXT('long'),
+        type: DataTypes.TEXT,
         allowNull: true,
       },
       summary: {

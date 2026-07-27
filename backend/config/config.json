@@ -1,29 +1,29 @@
 {
   "development": {
-    "username": "root",
-    "password": "your_password",
+    "username": "postgres",
+    "password": "abc123456!",
     "database": "meeting_db",
     "host": "127.0.0.1",
-    "port": 3306,
-    "dialect": "mysql",
+    "port": 5432,
+    "dialect": "postgres",
     "logging": false
   },
   "test": {
-    "username": "root",
-    "password": "your_password",
+    "username": "postgres",
+    "password": "abc123456!",
     "database": "meeting_db_test",
     "host": "127.0.0.1",
-    "port": 3306,
-    "dialect": "mysql",
+    "port": 5432,
+    "dialect": "postgres",
     "logging": false
   },
   "production": {
-    "username": "root",
-    "password": "your_password",
+    "username": "postgres",
+    "password": "abc123456!",
     "database": "meeting_db",
     "host": "127.0.0.1",
-    "port": 3306,
-    "dialect": "mysql",
+    "port": 5432,
+    "dialect": "postgres",
     "logging": false
   }
 }

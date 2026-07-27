@@ -5,11 +5,12 @@
  */
 require('dotenv').config();
 
-const { testConnection } = require('../config/db');
+const { testConnection, ensureDatabase } = require('../config/db');
 const { syncDatabase } = require('../models');
 
 async function main() {
   try {
+    await ensureDatabase();
     await testConnection();
     console.log('数据库连接成功');
     await syncDatabase();
