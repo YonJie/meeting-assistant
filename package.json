@@ -4,12 +4,16 @@
   "description": "智能会议纪要助手 - Vercel 全栈部署",
   "private": true,
   "scripts": {
-    "build": "cd frontend && npm install && npm run build",
+    "build": "cd frontend && npm ci && NODE_OPTIONS=--openssl-legacy-provider npm run build",
     "dev": "cd backend && npm run dev",
     "start": "cd backend && npm start",
     "sync": "cd backend && npm run sync",
     "seed": "cd backend && npm run seed",
     "init-db": "node scripts/init-db.js"
+  },
+  "engines": {
+    "node": "24.x",
+    "npm": ">=10.0.0"
   },
   "keywords": [],
   "author": "",
