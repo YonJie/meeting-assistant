@@ -4,9 +4,20 @@ const path = require('path');
 const { Sequelize } = require('sequelize');
 const { Client } = require('pg');
 
-// 优先加载 backend/.env，其次根目录 .env（Vercel 注入的环境变量不受影响）
-require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
-require('dotenv').config({ path: path.resolve(__dirname, '../.env'), override: true });
+const IS_SERVERLESS = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
+
+// Vercel / Serverless 使用平台注入的环境变量，不读本地 .env 文件
+if (!IS_SERVERLESS) {
+  require('dotenv').config({
+    path: path.resolve(__dirname, '../../.env'),
+    quiet: true,
+  });
+  require('dotenv').config({
+    path: path.resolve(__dirname, '../.env'),
+    override: true,
+    quiet: true,
+  });
+}
 
 const DATABASE_URL = process.env.DATABASE_URL;
 
@@ -15,10 +26,11 @@ const DB_PORT = Number(process.env.DB_PORT) || 5432;
 const DB_USER = process.env.DB_USER || 'postgres';
 const DB_PASSWORD = String(process.env.DB_PASSWORD ?? '');
 const DB_NAME = process.env.DB_NAME || 'meeting_db';
-const IS_SERVERLESS = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
 
 /**
- * 规范化连接串：去掉部分 Node pg 客户端不兼容的 channel_binding=require
+ * 规范化 Neon / Postgres 连接串：
+ * - 去掉 Node pg 不兼容的 channel_binding=require
+ * - 使用 uselibpqcompat=true，避免 sslmode=require 被当成 verify-full 的警告与行为变化
  * @param {string} url
  * @returns {string}
  */
@@ -28,6 +40,8 @@ function normalizeDatabaseUrl(url) {
     if (parsed.searchParams.get('channel_binding') === 'require') {
       parsed.searchParams.delete('channel_binding');
     }
+    parsed.searchParams.set('sslmode', 'require');
+    parsed.searchParams.set('uselibpqcompat', 'true');
     return parsed.toString();
   } catch {
     return url;
