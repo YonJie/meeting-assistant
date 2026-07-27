@@ -1,4 +1,9 @@
 {
   "version": 2,
-  "buildCommand": "npm run build"
+  "buildCommand": "npm run build",
+  "functions": {
+    "backend/app.js": {
+      "includeFiles": "public/**"
+    }
+  }
 }
