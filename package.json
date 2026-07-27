@@ -1,0 +1,26 @@
+{
+  "name": "meeting-assistant",
+  "version": "1.0.0",
+  "description": "智能会议纪要助手 - Vercel 全栈部署",
+  "private": true,
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build",
+    "dev": "cd backend && npm run dev",
+    "start": "cd backend && npm start",
+    "sync": "cd backend && npm run sync",
+    "seed": "cd backend && npm run seed",
+    "init-db": "node scripts/init-db.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "pg": "^8.22.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.8",
+    "serverless-http": "^3.2.0"
+  }
+}
